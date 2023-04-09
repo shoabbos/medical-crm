@@ -1,0 +1,19 @@
+:root {
+    --primary-clr: #e91e63;
+    --secondary-clr: #7b809a;
+    --info-clr: #1A73E8;
+    --success-clr: #4CAF50;
+    --warning-clr: #fb8c00;
+    --error-clr: #f44335;
+    --light-clr: #f0f2f5;
+    --dark-clr: #344767;
+    --light-thin-clr: rgba(255, 255, 255, 0.2);
+
+    --primary-gradient: linear-gradient(to right, #EC407A, #D81B60);
+    /* --secondary-gradient: linear-gradient(to bottom, #747b8a, #495361); */
+    --secondary-gradient: linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25));
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
