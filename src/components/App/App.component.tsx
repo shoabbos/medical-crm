@@ -16,6 +16,8 @@ import Schedules from "../Schedules/Schedules.component";
 import ScheduleDetailComponent from "../Schedules/ScheduleDetail.component";
 import LoadingLayout from "../Layouts/LoadingLayout";
 import NavBar from "../NavBar/NavBar.component";
+import DashboardPage from "../../pages/dashboard";
+import UsersPage from "../../pages/users";
 
 const layouts: Record<Roles, LayoutProps | null> = {
   [Roles.ADMIN]: {
@@ -61,6 +63,11 @@ const layouts: Record<Roles, LayoutProps | null> = {
         link: "/users",
         element: <Users />,
       },
+      "Dashboard": {
+        path: "/dashboard",
+        link: "/dashboard",
+        element: <DashboardPage />,
+      },
     },
   },
 };
@@ -68,7 +75,7 @@ const App = () => {
   const { userToken } = useUserToken();
   const layoutProps = useMemo(() => layouts["ADMIN"], []);
 
-  if (!userToken.access) {
+  if (!userToken.length === 0) {
     return (
       <div className="text-2xl md:px-[80px] lg:px-[100px]">
         {!userToken.access ? (
@@ -84,10 +91,21 @@ const App = () => {
       <div className="wrapper">
         <NavBar routes={layoutProps} />
 
-        <div>
+        <div className="home p-6">
           {layoutProps ? <Layout {...layoutProps} /> : "Error access denied!"}
           <main>
             <Routes>
+              <Route
+                path="/dashboard"
+                element={<DashboardPage />}
+                >
+              </Route>
+              <Route
+                path="/users"
+                element={<UsersPage />}
+                >
+              </Route>
+
               <Route
                 path="/applications/:applicationId"
                 element={<ApplicationDetails />}

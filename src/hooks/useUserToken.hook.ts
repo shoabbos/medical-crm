@@ -11,7 +11,8 @@ const getUserToken = async () => {
   // } catch (error) {
   //   return null;
   // }
-  return JSON.parse(localStorage.getItem('authUser') || '')
+  const data = localStorage.getItem('token')
+  return data && JSON.parse(data)
 };
 export const useUserToken = () => {
   const [userToken, setUserToken] = useRecoilState(userAtom);
@@ -23,6 +24,7 @@ export const useUserToken = () => {
       if (token) {
         setUserToken(token);
       } else {
+        console.log('should navigate to login')
         navigate("/login");
       }
     }

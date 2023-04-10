@@ -8,6 +8,8 @@ import { FC } from "react";
 import { LayoutProps } from "../Layouts/BaseLayout";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import LayersIcon from '@mui/icons-material/Layers';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const NavBar: FC<LayoutProps | any> = ({ routes }) => {
   const { logout } = useUserToken();
@@ -50,31 +52,47 @@ const NavBar: FC<LayoutProps | any> = ({ routes }) => {
   // );
 
   return (
-    <nav className="sidebar m-5 close">
+    <nav className="sidebar m-5">
+      <header>
+        <div className="image-text">
+          <span className="image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHkvYSbem_HX3twtOS3SBLqUC2oAtg5r4QTw&usqp=CAU" alt="luck" height="72px" />
+          </span>
+
+          <div className="text logo-text">
+            <span className="name">CRM service</span>
+            <span className="profession">Medical system</span>
+          </div>
+        </div>
+
+      </header>
+      <span className="menu-item__separator">
+        
+      </span>
       <div className="menu-bar">
         <div className="menu">
-          <li className="search-box">
+          {/* <li className="search-box">
             <i className="bx bx-search icon"></i>
             <input type="text" placeholder="Search..." />
-          </li>
+          </li> */}
 
           <ul className="menu-links">
             <li className="nav-link">
-              <a href="#">
+              <Link to="/dashboard" className="nav-link__item">
                 {/* <i className="bx bx-home-alt icon"></i> */}
                 <SpaceDashboardIcon className="icon p-2" />
                 <span className="text nav-text">Dashboard</span>
-              </a>
+              </Link>
             </li>
 
             <li className="nav-link">
-              <a href="#">
+              <Link to="/users" className="nav-link__item">
                 {/* <i className="bx bx-bar-chart-alt-2 icon"></i> */}
                 <LayersIcon className="icon p-2" />
-                <span className="text nav-text">Revenue</span>
-              </a>
+                <span className="text nav-text">Users</span>
+              </Link>
             </li>
-
+            {/* 
             <li className="nav-link">
               <a href="#">
                 <i className="bx bx-bell icon"></i>
@@ -101,16 +119,17 @@ const NavBar: FC<LayoutProps | any> = ({ routes }) => {
                 <i className="bx bx-wallet icon"></i>
                 <span className="text nav-text">Wallets</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
         <div className="bottom-content">
           <li className="">
-            <a href="#">
-              <i className="bx bx-log-out icon"></i>
-              <span className="text nav-text">Logout</span>
-            </a>
+            <div className="logout flex cursor-pointer">
+              {/* <i className="bx bx-log-out icon"></i> */}
+              <LogoutIcon className="icon p-2" />
+              <span className="text nav-text" onClick={logout}>Logout</span>
+            </div>
           </li>
         </div>
       </div>
