@@ -6,18 +6,20 @@ import { useRecoilState } from "recoil";
 import { publicApi, authProtectedApi } from "../../config/axios.config";
 import { userAtom, authTokenStateData } from "../../recoil/atoms";
 import { LOGIN_USER } from "../../config/url_helpers";
+import { useUser } from "../../hooks/useUser.hook";
+import LoadingLayout from "../Layouts/LoadingLayout";
 
 const SignIn = () => {
-  const [, setUser] = useRecoilState(userAtom);
+  const [, setUserLogin] = useRecoilState(userAtom);
+  const {user} = useUser()
   const navigate = useNavigate();
-  const [, setToken] = useRecoilState(authTokenStateData);
+  // const [, setToken] = useRecoilState(authTokenStateData);
 
   const { isSubmitting, errors, ...formik } = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: "testadmin",
+      password: "!1234567A@",
     },
-
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
         const response = await publicApi.post(LOGIN_USER, {
@@ -25,9 +27,9 @@ const SignIn = () => {
           password: values.password,
         });
         if (response.data.token) {
-          localStorage.setItem("token", response.data.token.access);
-          setUser(response.data.token);
-          setToken(response.data.access);
+          localStorage.setItem("authUser", JSON.stringify(response.data));
+          setUserLogin(response.data);
+          // setToken(response.data.access);
           navigate("/", {
             replace: true,
           });
@@ -41,6 +43,10 @@ const SignIn = () => {
       }
     },
   });
+  if(user.status) {
+    navigate('/dashboard')
+    return <LoadingLayout />
+  }
   return (
     <section className="signIn h-screen flex justify-center items-center">
       <div className="container mx-auto flex justify-center flex-col gap-6 items-center">

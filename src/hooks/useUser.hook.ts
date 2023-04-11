@@ -2,41 +2,42 @@ import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userAtom, defaultUser } from "../recoil/atoms";
 import { authProtectedApi, publicApi } from "../config/axios.config";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LOGIN_USER } from "../config/url_helpers";
-const getUserToken = async () => {
+const getUser = async () => {
   // try {
   //   const { data } = await publicApi(LOGIN_USER);
   //   return data;
   // } catch (error) {
   //   return null;
   // }
-  const data = localStorage.getItem('token')
+  const data = localStorage.getItem('authUser')
   return data && JSON.parse(data)
 };
-export const useUserToken = () => {
-  const [userToken, setUserToken] = useRecoilState(userAtom);
+export const useUser = () => {
+  const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
+  const location = useLocation()
 
   const onMount = useCallback(async () => {
-    if (!userToken.access) {
-      const token = await getUserToken();
-      if (token) {
-        setUserToken(token);
+    if (!user.status) {
+      const localUserData = await getUser();
+      if (localUserData && localUserData.status) {
+        setUser(localUserData);
+        if(location.pathname === '/') navigate('/dashboard')
       } else {
-        console.log('should navigate to login')
         navigate("/login");
       }
     }
-  }, [setUserToken]);
+  }, [setUser]);
   const logout = useCallback(async () => {
-    setUserToken(defaultUser);
-    localStorage.removeItem("token");
+    setUser(defaultUser);
+    localStorage.removeItem("authUser");
     navigate("/login");
-  }, [setUserToken]);
+  }, [setUser]);
 
   useEffect(() => {
     onMount();
   }, []);
-  return { userToken, logout };
+  return { user, logout };
 };

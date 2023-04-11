@@ -1,10 +1,7 @@
 import "./App.style.css";
 import CreateUser from "../AccountCreators/CreateUser.component";
-import { useUserToken } from "../../hooks/useUserToken.hook";
 import { useMemo } from "react";
-import { Roles } from "../../typing/enums/Role.enum";
 import { Categories } from "../Categories/Categories.component";
-import { LayoutProps } from "../Layouts/BaseLayout";
 import Layout from "../Layouts/BaseLayout";
 import CreateApplicationComponent from "../ApplicationCreator/CreateApplication.component";
 import Applications from "../Applications/Applications.component";
@@ -19,66 +16,68 @@ import NavBar from "../NavBar/NavBar.component";
 import DashboardPage from "../../pages/dashboard";
 import UsersPage from "../../pages/users";
 
+// auth
+import { useUser } from "../../hooks/useUser.hook";
+import { Roles } from "../../typing/enums/Role.enum";
+
+import { LayoutProps } from "../Layouts/BaseLayout";
+import { User } from "../../typing/types/User.type";
+import NotFoundPage from "../../pages/errorPages/404";
+
+
 const layouts: Record<Roles, LayoutProps | null> = {
-  [Roles.ADMIN]: {
+  [Roles.SUPERUSER]: {
     routes: {
-      "Bo'limlar": {
-        path: "/categories",
-        link: "/categories",
-        element: <Categories />,
-      },
-      "Foydalanuchi yaratish": {
-        path: "/create-user",
-        element: <CreateUser />,
-      },
-    },
-  },
-  [Roles.MANAGER]: {
-    routes: {
-      "Ariza yuborish": {
-        path: "/create-application",
-        element: <CreateApplicationComponent />,
-      },
-      "Bo'limlar": {
-        path: "/categories",
-        link: "/categories",
-        element: <Categories />,
-      },
-    },
-  },
-  [Roles.COURIER]: {
-    routes: {
-      "Arizalarni ko'rish": {
-        path: "/applications",
-        link: "/applications",
-        element: <Applications />,
-      },
-      "Bo'limlar": {
-        path: "/categories",
-        link: "/categories",
-        element: <Categories />,
-      },
-      "Ishchilar ro'yxati": {
-        path: "/users/*",
-        link: "/users",
-        element: <Users />,
-      },
       "Dashboard": {
         path: "/dashboard",
         link: "/dashboard",
         element: <DashboardPage />,
       },
+      "NotFound": {
+        path: "/*",
+        link: "/404",
+        element: <NotFoundPage />
+      }
+    },
+  },
+  [Roles.MANAGER]: {
+    routes: {
+      "Dashboard": {
+        path: "/dashboard",
+        link: "/dashboard",
+        element: <DashboardPage />,
+      },
+      "NotFound": {
+        path: "/*",
+        link: "/404",
+        element: <NotFoundPage />
+      }
+    },
+  },
+  [Roles.COURIER]: {
+    routes: {
+      "Dashboard": {
+        path: "/dashboard",
+        link: "/dashboard",
+        element: <DashboardPage />,
+      },
+      "NotFound": {
+        path: "/*",
+        link: "/404",
+        element: <NotFoundPage />
+      }
     },
   },
 };
-const App = () => {
-  const { userToken } = useUserToken();
-  const layoutProps = useMemo(() => layouts["ADMIN"], []);
 
-  if (!userToken.length === 0) {
+const App = () => {
+  const { user } = useUser();
+  const layoutProps = useMemo(() => layouts[user.status as Roles], [user]);
+
+  if (!user.status) {
     return (
       <div className="text-2xl md:px-[80px] lg:px-[100px]">
-        {!userToken.access ? (
+        {!user.status ? (
           <LoadingLayout></LoadingLayout>
         ) : (
           "Hatolik yuz berdi"
@@ -93,33 +92,6 @@ const App = () => {
 
         <div className="home p-6">
           {layoutProps ? <Layout {...layoutProps} /> : "Error access denied!"}
-          <main>
-            <Routes>
-              <Route
-                path="/dashboard"
-                element={<DashboardPage />}
-                >
-              </Route>
-              <Route
-                path="/users"
-                element={<UsersPage />}
-                >
-              </Route>
-
-              <Route
-                path="/applications/:applicationId"
-                element={<ApplicationDetails />}
-              />
-              <Route
-                path="/categories/:categoryId/schedules/*"
-                element={<Schedules />}
-              />
-              <Route
-                path="/categories/:categoryId/schedules/:scheduleId"
-                element={<ScheduleDetailComponent />}
-              />
-            </Routes>
-          </main>
         </div>
       </div>
     </div>

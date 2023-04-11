@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useUserToken } from "../../hooks/useUserToken.hook";
+import { useUser } from "../../hooks/useUser.hook";
 import { useRecoilState } from "recoil";
 import { menuAtom } from "../../recoil/atoms";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -12,7 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const NavBar: FC<LayoutProps | any> = ({ routes }) => {
-  const { logout } = useUserToken();
+  const { logout } = useUser();
   const [menuState, setMenuState] = useRecoilState(menuAtom);
 
   // return (

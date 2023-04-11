@@ -5,8 +5,11 @@ export const authStatusStateData = atom({
 });
 
 export const defaultUser = {
-  refresh: "",
-  access: ""
+  status: "",
+  token: {
+    refresh: "",
+    access: ""
+  }
 };
 
 export const authTokenStateData = atom({
