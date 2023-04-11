@@ -3,18 +3,20 @@ import CreateUser from "../AccountCreators/CreateUser.component";
 import { useMemo } from "react";
 import { Categories } from "../Categories/Categories.component";
 import Layout from "../Layouts/BaseLayout";
-import CreateApplicationComponent from "../ApplicationCreator/CreateApplication.component";
-import Applications from "../Applications/Applications.component";
-import { Users } from "../Users/Users.component";
-import { Route, Routes } from "react-router-dom";
-import { ApplicationDetails } from "../Applications/ApplicationDetails.component";
-import { QuestionCreator } from "../QuestionCreator/QuestionCreator.component";
-import Schedules from "../Schedules/Schedules.component";
-import ScheduleDetailComponent from "../Schedules/ScheduleDetail.component";
+// import CreateApplicationComponent from "../ApplicationCreator/CreateApplication.component";
+// import Applications from "../Applications/Applications.component";
+// import { Users } from "../Users/Users.component";
+// import { Route, Routes } from "react-router-dom";
+// import { ApplicationDetails } from "../Applications/ApplicationDetails.component";
+// import { QuestionCreator } from "../QuestionCreator/QuestionCreator.component";
+// import Schedules from "../Schedules/Schedules.component";
+// import ScheduleDetailComponent from "../Schedules/ScheduleDetail.component";
 import LoadingLayout from "../Layouts/LoadingLayout";
 import NavBar from "../NavBar/NavBar.component";
 import DashboardPage from "../../pages/dashboard";
-import UsersPage from "../../pages/users";
+// import UsersPage from "../../pages/users";
+
+
 
 // auth
 import { useUser } from "../../hooks/useUser.hook";
@@ -23,6 +25,7 @@ import { Roles } from "../../typing/enums/Role.enum";
 import { LayoutProps } from "../Layouts/BaseLayout";
 import { User } from "../../typing/types/User.type";
 import NotFoundPage from "../../pages/errorPages/404";
+
 
 
 const layouts: Record<Roles, LayoutProps | null> = {

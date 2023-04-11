@@ -8,11 +8,13 @@ import { userAtom, authTokenStateData } from "../../recoil/atoms";
 import { LOGIN_USER } from "../../config/url_helpers";
 import { useUser } from "../../hooks/useUser.hook";
 import LoadingLayout from "../Layouts/LoadingLayout";
+import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
   const [, setUserLogin] = useRecoilState(userAtom);
   const {user} = useUser()
   const navigate = useNavigate();
+  const {t} = useTranslation()
   // const [, setToken] = useRecoilState(authTokenStateData);
 
   const { isSubmitting, errors, ...formik } = useFormik({
@@ -56,7 +58,7 @@ const SignIn = () => {
           onSubmit={formik.handleSubmit}
           className="signIn-box border-[1px] border-black bg-white md:min-w-[500px] ex-sm:min-w-full flex flex-col gap-4 items-center px-6 py-4"
         >
-          <h2 className="text-xl">Tarmoqga kirish</h2>
+          <h2 className="text-xl">{t('auth_login')}</h2>
           <TextField
             id="username"
             name="username"
