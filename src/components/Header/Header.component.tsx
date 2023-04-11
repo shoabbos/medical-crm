@@ -20,7 +20,6 @@ const Header: FC<LayoutProps> = ({ routes }) => {
   const getCurrentPath = () => {
     return breadcrumbPaths[breadcrumbPaths.length - 1]
   }
-  console.log(getCurrentPath())
 
   return (
     <header className="ex-sm:px-4 ex-sm:py-4 ex-sm:mb-4">

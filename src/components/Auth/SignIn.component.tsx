@@ -15,8 +15,7 @@ const SignIn = () => {
   const {user} = useUser()
   const navigate = useNavigate();
   const {t} = useTranslation()
-  // const [, setToken] = useRecoilState(authTokenStateData);
-
+  const [, setToken] = useRecoilState(authTokenStateData);
   const { isSubmitting, errors, ...formik } = useFormik({
     initialValues: {
       username: "testadmin",
@@ -30,8 +29,9 @@ const SignIn = () => {
         });
         if (response.data.token) {
           localStorage.setItem("authUser", JSON.stringify(response.data));
+          localStorage.setItem("accessToken", response.data.token.access);
           setUserLogin(response.data);
-          // setToken(response.data.access);
+          setToken(response.data.token.access);
           navigate("/", {
             replace: true,
           });

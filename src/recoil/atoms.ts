@@ -32,6 +32,16 @@ export const noOfPagesAtom = atom({
   default: 0,
 });
 
+export const regionsAtom = atom({
+  key: 'regionsAtom',
+  default: []
+})
+
+export const districtsAtom = atom({
+  key: 'districtsAtom',
+  default: []
+})
+
 export const startStackAtom = atom({
   key: "startStackAtom",
   default: 1,
