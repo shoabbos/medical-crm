@@ -25,6 +25,7 @@
     "react-dom": "^18.0.0",
     "react-i18next": "^12.2.0",
     "react-router-dom": "^6.3.0",
+    "react-toastify": "^9.1.2",
     "recoil": "^0.7.4",
     "styled-components": "^5.3.5"
   },

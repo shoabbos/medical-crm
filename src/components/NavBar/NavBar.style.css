@@ -96,7 +96,6 @@ body
 }
 
 .home .text {
-    font-size: 30px;
     font-weight: 500;
     color: var(--text-color);
     padding: 12px 60px;
@@ -140,9 +139,8 @@ body
 }
 
 .sidebar .text {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
-    white-space: nowrap;
     opacity: 1;
 }
 

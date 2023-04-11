@@ -3,7 +3,9 @@ import { useRecoilState } from "recoil";
 import { userAtom, defaultUser } from "../recoil/atoms";
 import { authProtectedApi, publicApi } from "../config/axios.config";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LOGIN_USER } from "../config/url_helpers";
+import { LOGIN_USER, LOGOUT_USER } from "../config/url_helpers";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 const getUser = async () => {
   // try {
   //   const { data } = await publicApi(LOGIN_USER);
@@ -18,7 +20,7 @@ export const useUser = () => {
   const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
   const location = useLocation()
-
+  const {t} = useTranslation()
   const onMount = useCallback(async () => {
     if (!user.status) {
       const localUserData = await getUser();
@@ -31,9 +33,14 @@ export const useUser = () => {
     }
   }, [setUser]);
   const logout = useCallback(async () => {
-    setUser(defaultUser);
-    localStorage.removeItem("authUser");
-    navigate("/login");
+    // authProtectedApi().post(LOGOUT_USER, {refresh: user.token.refresh})
+    // .then((res)=> {
+        setUser(defaultUser);
+        localStorage.removeItem("authUser");
+        localStorage.removeItem("accessToken");
+        toast.warning(t('logout_success'))
+        navigate("/login");
+      // })
   }, [setUser]);
 
   useEffect(() => {

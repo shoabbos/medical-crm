@@ -9,12 +9,14 @@ import { LOGIN_USER } from "../../config/url_helpers";
 import { useUser } from "../../hooks/useUser.hook";
 import LoadingLayout from "../Layouts/LoadingLayout";
 import { useTranslation } from "react-i18next";
+import {toast} from 'react-toastify';
 
 const SignIn = () => {
   const [, setUserLogin] = useRecoilState(userAtom);
   const {user} = useUser()
   const navigate = useNavigate();
   const {t} = useTranslation()
+  
   const [, setToken] = useRecoilState(authTokenStateData);
   const { isSubmitting, errors, ...formik } = useFormik({
     initialValues: {
@@ -35,11 +37,13 @@ const SignIn = () => {
           navigate("/", {
             replace: true,
           });
+          toast.success(t('logged_in_success'))
         }
       } catch {
         setErrors({
-          password: "Nato'gri foydalanuvchi yoki parol",
+          password: `${t('incorrect_username_password')}`,
         });
+        toast.error(t('logged_in_error'))
       } finally {
         setSubmitting(false);
       }
@@ -52,7 +56,7 @@ const SignIn = () => {
   return (
     <section className="signIn h-screen flex justify-center items-center">
       <div className="container mx-auto flex justify-center flex-col gap-6 items-center">
-        <h1 className="text-3xl text-white">Xush kelibsiz</h1>
+        <h1 className="text-3xl text-white">{t('welcome_login')}</h1>
 
         <form
           onSubmit={formik.handleSubmit}
@@ -65,7 +69,7 @@ const SignIn = () => {
             type="text"
             onChange={formik.handleChange}
             value={formik.values.username}
-            label="Foydalanuchi ismingizni kiriting"
+            label={t('enter_username')}
             fullWidth
           />
           <TextField
@@ -74,7 +78,7 @@ const SignIn = () => {
             type="password"
             onChange={formik.handleChange}
             value={formik.values.password}
-            label="Shaxshiy kodingizni kiriting"
+            label={t('enter_password')}
             fullWidth
           />
           {errors.password && <p className="text-red-500">{errors.password}</p>}
@@ -88,7 +92,7 @@ const SignIn = () => {
             fullWidth
             type="submit"
           >
-            Submit
+            {t('to_login')}
           </Button>
         </form>
       </div>

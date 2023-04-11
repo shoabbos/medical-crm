@@ -1,20 +1,12 @@
 import "./App.style.css";
-import CreateUser from "../AccountCreators/CreateUser.component";
 import { useEffect, useMemo } from "react";
-import { Categories } from "../Categories/Categories.component";
 import Layout from "../Layouts/BaseLayout";
-// import CreateApplicationComponent from "../ApplicationCreator/CreateApplication.component";
-// import Applications from "../Applications/Applications.component";
-// import { Users } from "../Users/Users.component";
-// import { Route, Routes } from "react-router-dom";
-// import { ApplicationDetails } from "../Applications/ApplicationDetails.component";
-// import { QuestionCreator } from "../QuestionCreator/QuestionCreator.component";
-// import Schedules from "../Schedules/Schedules.component";
-// import ScheduleDetailComponent from "../Schedules/ScheduleDetail.component";
 import LoadingLayout from "../Layouts/LoadingLayout";
 import NavBar from "../NavBar/NavBar.component";
 import DashboardPage from "../../pages/dashboard";
-// import UsersPage from "../../pages/users";
+
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import LayersIcon from '@mui/icons-material/Layers';
 
 
 
@@ -39,16 +31,21 @@ const layouts: Record<Roles, LayoutProps | null> = {
       "Dashboard": {
         path: "/dashboard",
         link: "/dashboard",
+        title: 'dashboard_page',
         element: <DashboardPage />,
+        icon: <SpaceDashboardIcon className="icon p-2" />
       },
       "Users": {
         path: "/users",
         link: "/users",
-        element: <UsersPage />
+        title: 'users_page',
+        element: <UsersPage />,
+        icon: <LayersIcon className="icon p-2" />
       },
       "NotFound": {
         path: "/*",
         link: "/404",
+        title: '404',
         element: <NotFoundPage />
       }
     },
@@ -58,12 +55,15 @@ const layouts: Record<Roles, LayoutProps | null> = {
       "Dashboard": {
         path: "/dashboard",
         link: "/dashboard",
+        title: 'dashboard_page',
         element: <DashboardPage />,
+        icon: <SpaceDashboardIcon className="icon p-2" />
       },
       "NotFound": {
         path: "/*",
         link: "/404",
-        element: <NotFoundPage />
+        title: '404',
+        element: <NotFoundPage />,
       }
     },
   },
@@ -72,11 +72,14 @@ const layouts: Record<Roles, LayoutProps | null> = {
       "Dashboard": {
         path: "/dashboard",
         link: "/dashboard",
+        title: 'dashboard_page',
         element: <DashboardPage />,
+        icon: <LayersIcon className="icon p-2" />
       },
       "NotFound": {
         path: "/*",
         link: "/404",
+        title: '404',
         element: <NotFoundPage />
       }
     },
@@ -88,13 +91,14 @@ const App = () => {
   const layoutProps = useMemo(() => layouts[user.status as Roles], [user]);
   const [regions, setRegions] = useRecoilState(regionsAtom)
   const [districts, setDistricts] = useRecoilState(districtsAtom)
-  useEffect(() =>{
+
+  useEffect(() => {
     authProtectedApi().get(GET_REGIONS)
       .then((res) => {
-          setRegions(res.data)
+        setRegions(res.data)
       })
     authProtectedApi().get(GET_DISTRICTS)
-      .then((res)=> {
+      .then((res) => {
         setDistricts(res.data)
       })
   }, [])
@@ -114,8 +118,7 @@ const App = () => {
   return (
     <div className="app">
       <div className="wrapper">
-        <NavBar routes={layoutProps} />
-
+        {layoutProps ? <NavBar {...layoutProps} /> : 'Error access denied!'}
         <div className="home p-6">
           {layoutProps ? <Layout {...layoutProps} /> : "Error access denied!"}
         </div>

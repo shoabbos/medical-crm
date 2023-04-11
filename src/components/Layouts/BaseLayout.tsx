@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, ReactElement } from "react";
 import Header from "../Header/Header.component";
 import { PathRouteProps, Route, Routes } from "react-router-dom";
 import NavBar from "../NavBar/NavBar.component";
 export interface LayoutProps {
-  routes: Record<string, PathRouteProps & { link?: string }>;
+  routes: Record<string, PathRouteProps & { link?: string; icon?: JSX.Element, title: string }>;
 }
 
 const Layout: FC<LayoutProps> = ({ routes }) => {
