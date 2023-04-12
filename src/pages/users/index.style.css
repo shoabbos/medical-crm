@@ -1,0 +1,11 @@
+.responsive-table {
+    @apply w-full table-auto border-separate border-spacing-y-4;
+}
+
+.first-td {
+    border-radius: 12px 0 0 12px;
+}
+
+.last-td {
+    border-radius: 0 12px 12px 0;
+}

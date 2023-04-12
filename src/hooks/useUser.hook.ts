@@ -24,7 +24,6 @@ export const useUser = () => {
   const onMount = useCallback(async () => {
     if (!user.role) {
       const localUserData = await getUser();
-      console.log(localUserData)
       if (localUserData && localUserData.role) {
         setUser(localUserData);
         if(location.pathname === '/') navigate('/dashboard')

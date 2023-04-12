@@ -1,0 +1,17 @@
+.table {
+    @apply border-spacing-y-3 border-separate text-sm w-full 
+}
+
+
+.table tbody tr td {
+    @apply py-5 px-4 bg-white;
+}
+
+.table thead tr th {
+    @apply py-2 px-4
+}
+
+.table tbody tr td {
+    background-clip: border-box;
+    box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem;
+}

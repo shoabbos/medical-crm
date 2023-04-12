@@ -8,7 +8,7 @@ export interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ routes }) => {
   return (
-    <div className="flex">
+    <div className="">
       <section className="content">
         <Header routes={routes} />
         <Routes>
