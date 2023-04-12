@@ -88,7 +88,7 @@ const layouts: Record<Roles, LayoutProps | null> = {
 
 const App = () => {
   const { user } = useUser();
-  const layoutProps = useMemo(() => layouts[user.status as Roles], [user]);
+  const layoutProps = useMemo(() => layouts[user.role as Roles], [user]);
   const [regions, setRegions] = useRecoilState(regionsAtom)
   const [districts, setDistricts] = useRecoilState(districtsAtom)
 
@@ -103,11 +103,11 @@ const App = () => {
       })
   }, [])
 
-
-  if (!user.status) {
+  console.log(user.role)
+  if (!user.role) {
     return (
       <div className="text-2xl md:px-[80px] lg:px-[100px]">
-        {!user.status ? (
+        {!user.role ? (
           <LoadingLayout></LoadingLayout>
         ) : (
           "Hatolik yuz berdi"

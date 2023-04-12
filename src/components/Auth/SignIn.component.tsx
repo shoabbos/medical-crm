@@ -49,7 +49,7 @@ const SignIn = () => {
       }
     },
   });
-  if(user.status) {
+  if(user.role) {
     navigate('/dashboard')
     return <LoadingLayout />
   }

@@ -22,9 +22,10 @@ export const useUser = () => {
   const location = useLocation()
   const {t} = useTranslation()
   const onMount = useCallback(async () => {
-    if (!user.status) {
+    if (!user.role) {
       const localUserData = await getUser();
-      if (localUserData && localUserData.status) {
+      console.log(localUserData)
+      if (localUserData && localUserData.role) {
         setUser(localUserData);
         if(location.pathname === '/') navigate('/dashboard')
       } else {
