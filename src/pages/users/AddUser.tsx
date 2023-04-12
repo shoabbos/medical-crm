@@ -7,12 +7,14 @@ import { districtsAtom, regionsAtom } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 interface Props {
-    onCreate: (values: any) => void;
+    fetchUsers: () => void;
+    handleModalClose: () => void;
 }
 
-const AddUser: FC = () => {
+const AddUser: FC<Props> = ({fetchUsers, handleModalClose}) => {
     const [regions] = useRecoilState(regionsAtom)
     const [districts] = useRecoilState(districtsAtom)
     const { t } = useTranslation()
@@ -20,8 +22,7 @@ const AddUser: FC = () => {
     const formik = useFormik({
         initialValues: {
             username: "",
-            first_name: "",
-            last_name: "",
+            name: "",
             region: 0,
             district: 0,
             password: "",
@@ -31,8 +32,12 @@ const AddUser: FC = () => {
             try {
                 const { data } = await authProtectedApi().post(ADD_USER, values);
                 formik.resetForm();
+                fetchUsers()
+                handleModalClose()
+                toast.success(t('create_user_success'))
             } catch (err) {
                 console.log(err);
+                toast.error(t('create_user_error'))
             }
         },
     });
@@ -69,22 +74,12 @@ const AddUser: FC = () => {
                         required
                     />
                     <TextField
-                        id="first_name"
-                        name="first_name"
+                        id="name"
+                        name="name"
                         type="text"
                         onChange={formik.handleChange}
-                        value={formik.values.first_name}
+                        value={formik.values.name}
                         label={t('first_name')}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        id="last_name"
-                        name="last_name"
-                        type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.last_name}
-                        label={t('last_name')}
                         fullWidth
                         required
                     />

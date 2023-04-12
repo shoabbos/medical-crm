@@ -25,12 +25,15 @@ const UsersPage = () => {
   const handleClose = () => setOpen(false);
   const { t } = useTranslation()
 
-  useEffect(() => {
+  function fetchUsers() {
     authProtectedApi()
-      .get(GET_USERS)
-      .then((res) => {
-        setUsersList(res.data)
-      })
+    .get(GET_USERS)
+    .then((res) => {
+      setUsersList(res.data)
+    })
+  }
+  useEffect(() => {
+    fetchUsers()
   }, [])
   console.log(usersList)
   return (
@@ -47,7 +50,7 @@ const UsersPage = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <AddUser />
+            <AddUser fetchUsers={fetchUsers} handleModalClose={handleClose} />
           </Box>
         </Modal>
       </div>
