@@ -103,7 +103,6 @@ const App = () => {
       })
   }, [])
 
-  console.log(user.role)
   if (!user.role) {
     return (
       <div className="text-2xl md:px-[80px] lg:px-[100px]">
