@@ -32,9 +32,11 @@ const FilesPage = () => {
             .post(ADMIN_FILE_UPLOAD, fileData)
             .then((res) => {
                 console.log(res)
+                toast.success(t('submit_file_success'))
             })
             .catch((err) => {
                 console.log(err)
+                toast.success(t('submit_file_error'))
             })
         }
 
