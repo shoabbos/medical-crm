@@ -33,14 +33,21 @@ export const useUser = () => {
     }
   }, [setUser]);
   const logout = useCallback(async () => {
-    // authProtectedApi().post(LOGOUT_USER, {refresh: user.token.refresh})
-    // .then((res)=> {
+    authProtectedApi().post(LOGOUT_USER, {refresh: user.token.refresh})
+    .then((res)=> {
         setUser(defaultUser);
         localStorage.removeItem("authUser");
         localStorage.removeItem("accessToken");
         toast.warning(t('logout_success'))
         navigate("/login");
-      // })
+      })
+      .catch((err) => {
+        setUser(defaultUser);
+        localStorage.removeItem("authUser");
+        localStorage.removeItem("accessToken");
+        toast.warning(t('logout_success'))
+        navigate("/login");
+      })
   }, [setUser]);
 
   useEffect(() => {

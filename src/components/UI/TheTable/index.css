@@ -3,12 +3,16 @@
 }
 
 
+.table thead tr th {
+    @apply py-2 px-4
+}
+
 .table tbody tr td {
     @apply py-5 px-4 bg-white;
 }
 
-.table thead tr th {
-    @apply py-2 px-4
+.table tbody tr td.last-td {
+    @apply py-4 px-2;
 }
 
 .table tbody tr td {

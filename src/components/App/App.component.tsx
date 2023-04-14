@@ -7,7 +7,7 @@ import DashboardPage from "../../pages/dashboard";
 
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import LayersIcon from '@mui/icons-material/Layers';
-
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 
 // auth
@@ -22,6 +22,7 @@ import { authProtectedApi } from "../../config/axios.config";
 import { GET_DISTRICTS, GET_REGIONS } from "../../config/url_helpers";
 import { districtsAtom, regionsAtom } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
+import FilesPage from "../../pages/files";
 
 
 
@@ -47,6 +48,13 @@ const layouts: Record<Roles, LayoutProps | null> = {
         link: "/404",
         title: '404',
         element: <NotFoundPage />
+      },
+      "Files": {
+        path: "/files",
+        link: "/files",
+        title: "Upload Files",
+        icon: <UploadFileIcon className="icon p-2"  />,
+        element: <FilesPage />
       }
     },
   },

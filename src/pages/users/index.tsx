@@ -5,6 +5,7 @@ import AddUser from "./AddUser";
 import { authProtectedApi } from "../../config/axios.config";
 import { GET_USERS } from "../../config/url_helpers";
 import TheTable from "../../components/UI/TheTable";
+import EditIcon from '@mui/icons-material/Edit';
 import "./index.style.css"
 
 const style = {
@@ -64,6 +65,7 @@ const UsersPage = () => {
               <th className=" text-left">{t('table_head_username')}</th>
               <th className=" text-left">{t('table_head_region')}</th>
               <th className=" text-left">{t('table_head_district')}</th>
+              <th className=" text-center p-1">{t('table_head_actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -88,8 +90,13 @@ const UsersPage = () => {
                     <td className="">
                       {item.region ?? t('table_body_empty')}
                     </td>
-                    <td className="last-td">
+                    <td className="">
                       {item.district ?? t('table_body_empty')}
+                    </td>
+                    <td className="last-td text-center">
+                      <button>
+                       <EditIcon fontSize="medium" />
+                      </button>
                     </td>
                   </tr>
                 )
