@@ -79,6 +79,7 @@ const FilesPage = () => {
                 console.log(res)
                     const errors = Object.keys(res.data.result.message)
                     console.log(errors)
+                    // @ts-ignore
                     setErrorLines(errors)
                     getTables(fileId)
                 
@@ -185,13 +186,13 @@ const FilesPage = () => {
                       {item.id ?? t('table_body_empty')}
                     </td>
                     <td className="">
-                      {item.username ?? t('table_body_empty')}
+                      {t('table_body_empty')}
                     </td>
                     <td className="">
-                      {item.region ?? t('table_body_empty')}
+                      { t('table_body_empty')}
                     </td>
                     <td className="">
-                      {item.district ?? t('table_body_empty')}
+                      { t('table_body_empty')}
                     </td>
                     <td className="last-td text-center">
                       <button>
