@@ -55,7 +55,9 @@ const FilesPage = () => {
                 .then((res) => {
                     console.log(res)
                     setTaskId(res.data.task_id)
-                    checkLinesForErrors(res.data.task_id, res.data.id)
+                    setTimeout(() => {
+                        checkLinesForErrors(res.data.task_id, res.data.id)
+                    }, 1000)
                     toast.success(t('upload_file_success'))
                 })
                 .catch((err) => {
@@ -75,13 +77,11 @@ const FilesPage = () => {
             .get(GET_FILE_STATUS + `?task_id=${taskId}`)
             .then((res) => {
                 console.log(res)
-                if (Object.keys(res.data.result.message).length) {
                     const errors = Object.keys(res.data.result.message)
                     console.log(errors)
-                    setErrorLines(...errors)
-                } else {
+                    setErrorLines(errors)
                     getTables(fileId)
-                }
+                
             })
             .finally(() => {
                 setFileChecking(false)
