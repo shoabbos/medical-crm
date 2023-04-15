@@ -12,7 +12,7 @@ const authProtectedApi = axios.create({
   ..._BASE_CONFIG,
   headers: {
     ..._BASE_CONFIG.headers,
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
 });
 

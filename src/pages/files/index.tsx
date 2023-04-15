@@ -13,7 +13,7 @@ const FilesPage = () => {
 
     const [open, setOpen] = useState(false);
     const [taskId, setTaskId] = useState('')
-    const [errorLines, setErrorLines] = useState<number[]>([])
+    const [errorLines, setErrorLines] = useState<number[] | any>([])
     const [fileUploading, setFileUploading] = useState(false)
     const [fileErrorChecking, setFileChecking] = useState(false)
     const [tables, setTables] = useState<FileTyping[]>([])
@@ -77,11 +77,13 @@ const FilesPage = () => {
             .get(GET_FILE_STATUS + `?task_id=${taskId}`)
             .then((res) => {
                 console.log(res)
-                    const errors = Object.keys(res.data.result.message)
-                    console.log(errors)
-                    // @ts-ignore
-                    setErrorLines(errors)
-                    getTables(fileId)
+                if(Object.keys(res.data.result.message).length) {
+                  const errors = Object.keys(res.data.result.message)
+                  console.log(errors)
+                  setErrorLines(errors)
+                } else {
+                  getTables(fileId)
+                }
                 
             })
             .finally(() => {
@@ -186,13 +188,13 @@ const FilesPage = () => {
                       {item.id ?? t('table_body_empty')}
                     </td>
                     <td className="">
-                      {t('table_body_empty')}
+                      {item.fullname ?? t('table_body_empty')}
                     </td>
                     <td className="">
-                      { t('table_body_empty')}
+                      {item.region_name ?? t('table_body_empty')}
                     </td>
                     <td className="">
-                      { t('table_body_empty')}
+                      {item.district_name ?? t('table_body_empty')}
                     </td>
                     <td className="last-td text-center">
                       <button>
