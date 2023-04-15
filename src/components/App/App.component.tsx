@@ -16,7 +16,7 @@ import { useUser } from "../../hooks/useUser.hook";
 import { Roles } from "../../typing/enums/Role.enum";
 
 import { LayoutProps } from "../Layouts/BaseLayout";
-import { User } from "../../typing/types/User.type";
+// import { User } from "../../typing/types/User.type";
 import NotFoundPage from "../../pages/errorPages/404";
 import UsersPage from "../../pages/users";
 import { authProtectedApi } from "../../config/axios.config";
