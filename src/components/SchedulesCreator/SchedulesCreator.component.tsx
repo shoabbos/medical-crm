@@ -15,7 +15,7 @@ export const SchedulesCreator = (props: CategoryValue) => {
     },
     onSubmit: (values, formikHelpers) => {
       alert(JSON.stringify(values, null, 2));
-      authProtectedApi()
+      authProtectedApi
         .post("/schedule", values)
         .then(function () {
           navigate(`/categories`);

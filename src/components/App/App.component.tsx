@@ -8,6 +8,7 @@ import DashboardPage from "../../pages/dashboard";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import LayersIcon from '@mui/icons-material/Layers';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 
 // auth
@@ -53,7 +54,7 @@ const layouts: Record<Roles, LayoutProps | null> = {
         path: "/files",
         link: "/files",
         title: "Upload Files",
-        icon: <UploadFileIcon className="icon p-2"  />,
+        icon: <Inventory2Icon className="icon p-2"  />,
         element: <FilesPage />
       }
     },
@@ -101,14 +102,16 @@ const App = () => {
   const [districts, setDistricts] = useRecoilState(districtsAtom)
 
   useEffect(() => {
-    authProtectedApi().get(GET_REGIONS)
-      .then((res) => {
-        setRegions(res.data)
-      })
-    authProtectedApi().get(GET_DISTRICTS)
-      .then((res) => {
-        setDistricts(res.data)
-      })
+    if(user.user_id) {
+      authProtectedApi.get(GET_REGIONS)
+        .then((res) => {
+          setRegions(res.data)
+        })
+      authProtectedApi.get(GET_DISTRICTS)
+        .then((res) => {
+          setDistricts(res.data)
+        })
+    }
   }, [])
 
   if (!user.role) {

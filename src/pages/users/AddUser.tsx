@@ -30,7 +30,7 @@ const AddUser: FC<Props> = ({fetchUsers, handleModalClose}) => {
         },
         onSubmit: async (values) => {
             try {
-                const { data } = await authProtectedApi().post(ADD_USER, values);
+                const { data } = await authProtectedApi.post(ADD_USER, values);
                 formik.resetForm();
                 fetchUsers()
                 handleModalClose()

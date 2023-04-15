@@ -41,7 +41,7 @@ export const useApi = <T = any>(
   const get = useCallback(async (url: string) => {
     dispatch({ type: "init" });
     try {
-      const { data } = await authProtectedApi().get(url, config);
+      const { data } = await authProtectedApi.get(url, config);
       dispatch({ type: "success", data });
     } catch (error) {
       dispatch({ type: "error", data: error });

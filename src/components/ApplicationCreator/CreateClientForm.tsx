@@ -22,7 +22,7 @@ const CreateClientForm: FC<Props> = ({ onCreate }) => {
     },
     onSubmit: async (values) => {
       try {
-        const { data } = await authProtectedApi().get(
+        const { data } = await authProtectedApi.get(
           "/clients/card-number/" + values.cardNumber
         );
         if (!data) {
@@ -32,7 +32,7 @@ const CreateClientForm: FC<Props> = ({ onCreate }) => {
         onCreate({ clientId: data.id });
       } catch {
         try {
-          const { data } = await authProtectedApi().post("/clients", values);
+          const { data } = await authProtectedApi.post("/clients", values);
 
           onCreate({ clientId: data.id });
           formik.resetForm();

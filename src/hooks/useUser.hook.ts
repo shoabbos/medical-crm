@@ -33,7 +33,7 @@ export const useUser = () => {
     }
   }, [setUser]);
   const logout = useCallback(async () => {
-    authProtectedApi().post(LOGOUT_USER, {refresh: user.token.refresh})
+    authProtectedApi.post(LOGOUT_USER, {refresh: user.token.refresh})
     .then((res)=> {
         setUser(defaultUser);
         localStorage.removeItem("authUser");

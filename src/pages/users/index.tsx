@@ -27,7 +27,7 @@ const UsersPage = () => {
   const { t } = useTranslation()
 
   function fetchUsers() {
-    authProtectedApi()
+    authProtectedApi
     .get(GET_USERS)
     .then((res) => {
       setUsersList(res.data)
@@ -74,7 +74,7 @@ const UsersPage = () => {
             {
               usersList.map((item: {name: string; id: number; username: string; region: string; district: string;}, idx) => {
                 return (
-                  <tr className="">
+                  <tr className="" key={item.username+item.id}>
                     <td className="py-[23px]  first-td px-4">
                       {idx + 1}
                     </td>
